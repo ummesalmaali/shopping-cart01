@@ -52,7 +52,19 @@ header {
   height: inherit;
   align-items: center;
 }
-
+.remove-icon {
+  width: 15px;
+  height: 15px;
+  color: #ed4848;
+}
+.add {
+  width: 15px;
+  height: 15px;
+}
+.minus {
+  width: 20px;
+  height: 20px;
+}
 .continue-shopping .arrow-icon {
   width: 2.2rem;
   height: 2.2rem;
