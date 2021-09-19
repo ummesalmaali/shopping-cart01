@@ -18,6 +18,9 @@ const reducer = (state, action) => {
       }),
     };
   }
+  if (action.type === "CLEAR_CART") {
+    return { ...state, item: [] };
+  }
   return state;
 };
 
@@ -31,8 +34,15 @@ const Cart = () => {
       payload: id,
     });
   };
+
+  // delete all the items from the car t with single click
+
+  const clearCart = () => {
+    return dispatch({ type: "CLEAR_CART" });
+  };
+
   return (
-    <CartContext.Provider value={{ ...state, removeItem }}>
+    <CartContext.Provider value={{ ...state, removeItem, clearCart }}>
       <ContextCart />
     </CartContext.Provider>
   );

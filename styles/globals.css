@@ -58,15 +58,15 @@ header {
   color: #ed4848;
 }
 .add {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 }
 .add:hover {
   color: #48ed5e;
 }
 .minus {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 }
 .minus:hover {
   color: #ed4848;
