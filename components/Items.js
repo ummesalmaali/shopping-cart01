@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import Image from "next/image";
 import { CartContext } from "./Cart";
 const Items = ({ curElem }) => {
-  const { id, title, description, img, price } = curElem;
-  const { removeItem } = useContext(CartContext);
+  const { id, title, description, img, price, quantity } = curElem;
+  const { removeItem, increment, decrement } = useContext(CartContext);
+
   return (
     <>
       <div className="items-info">
@@ -20,6 +21,7 @@ const Items = ({ curElem }) => {
             className="minus"
             viewBox="0 0 20 20"
             fill="currentColor"
+            onClick={() => decrement(id)}
           >
             <path
               fillRule="evenodd"
@@ -27,12 +29,13 @@ const Items = ({ curElem }) => {
               clipRule="evenodd"
             />
           </svg>
-          <input type="text" placeholder="2" />
+          <input type="text" placeholder={quantity} />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="add"
             viewBox="0 0 20 20"
             fill="currentColor"
+            onClick={() => increment(id)}
           >
             <path
               fillRule="evenodd"

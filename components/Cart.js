@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 import ContextCart from "./ContextCart";
 import { products } from "./Products";
 export const CartContext = createContext();
@@ -21,6 +21,45 @@ const reducer = (state, action) => {
   if (action.type === "CLEAR_CART") {
     return { ...state, item: [] };
   }
+  if (action.type === "INCREMENT") {
+    let updatedCart = state.item.map((curElem) => {
+      if (curElem.id === action.payload) {
+        return { ...curElem, quantity: curElem.quantity + 1 };
+      }
+      return curElem;
+    });
+    return { ...state, item: updatedCart };
+  }
+  if (action.type === "DECREMENT") {
+    let updatedCart = state.item
+      .map((curElem) => {
+        if (curElem.id === action.payload) {
+          return { ...curElem, quantity: curElem.quantity - 1 };
+        }
+        return curElem;
+      })
+      .filter((curElem) => {
+        return curElem.quantity !== 0;
+      });
+    return { ...state, item: updatedCart };
+  }
+  if (action.type === "GET_TOTAL") {
+    let { totalItem, totalAmount } = state.item.reduce(
+      (accum, curVal) => {
+        let { price, quantity } = curVal;
+        let updatedAmount = price * quantity;
+
+        accum.totalAmount += updatedAmount;
+        accum.totalItem += quantity;
+        return accum;
+      },
+      {
+        totalItem: 0,
+        totalAmount: 0,
+      }
+    );
+    return { ...state, totalItem, totalAmount };
+  }
   return state;
 };
 
@@ -41,8 +80,32 @@ const Cart = () => {
     return dispatch({ type: "CLEAR_CART" });
   };
 
+  // function for inrement button by one in every click
+
+  const increment = (id) => {
+    return dispatch({ type: "INCREMENT", payload: id });
+  };
+  const decrement = (id) => {
+    return dispatch({ type: "DECREMENT", payload: id });
+  };
+
+  // using the useEffect functionality to update the or change state of the cart
+  useEffect(() => {
+    dispatch({ type: "GET_TOTAL" });
+  }, [state.item]);
+
   return (
-    <CartContext.Provider value={{ ...state, removeItem, clearCart }}>
+    <CartContext.Provider
+      value={{
+        ...state,
+        removeItem,
+        clearCart,
+        increment,
+        decrement,
+        totalAmount: state.totalAmount,
+        totalItem: state.totalItem,
+      }}
+    >
       <ContextCart />
     </CartContext.Provider>
   );
