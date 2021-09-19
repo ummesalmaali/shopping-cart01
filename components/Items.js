@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
+import { CartContext } from "./Cart";
 const Items = ({ curElem }) => {
-  const { title, description, img, price } = curElem;
+  const { id, title, description, img, price } = curElem;
+  const { removeItem } = useContext(CartContext);
   return (
     <>
       <div className="items-info">
@@ -50,6 +52,7 @@ const Items = ({ curElem }) => {
             className="remove-icon"
             viewBox="0 0 20 20"
             fill="currentColor"
+            onClick={() => removeItem(id)}
           >
             <path
               fillRule="evenodd"

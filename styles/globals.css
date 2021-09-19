@@ -53,17 +53,23 @@ header {
   align-items: center;
 }
 .remove-icon {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   color: #ed4848;
 }
 .add {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
+}
+.add:hover {
+  color: #48ed5e;
 }
 .minus {
   width: 20px;
   height: 20px;
+}
+.minus:hover {
+  color: #ed4848;
 }
 .continue-shopping .arrow-icon {
   width: 2.2rem;
